@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -48,7 +50,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -59,36 +60,60 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       backgroundColor: Colors.red,
-
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         backgroundColor: Colors.red,
-
       ),
       body: DicePage(),
     );
   }
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  var leftDiceNumber = 3;
+  var rightDiceNumber = 6;
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Row(
-        children: <Widget> [
-          Expanded(
-              child: Image.asset('images/dice1.png')
-          ),
-          Expanded(
-              child: Image.asset('images/dice3.png')
-          ),
-        ],
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-      )
-    );
-  }
 
+    return Center(
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextButton(
+                  child: Image.asset('images/dice$leftDiceNumber.png'),
+                  onPressed: () {
+                    setState(() {
+                      leftDiceNumber = Random().nextInt(6) + 1;
+                      print('Left dice number is $leftDiceNumber');
+                    });
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextButton(
+                    child: Image.asset('images/dice$rightDiceNumber.png'),
+                    onPressed: () {
+                      rightDiceNumber = Random().nextInt(5) + 1;
+                      print('Right dice number is $rightDiceNumber');
+                    },
+                  ),
+                )),
+          ],
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+        ));
+  }
 }
