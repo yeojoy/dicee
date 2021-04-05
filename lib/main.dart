@@ -83,6 +83,15 @@ class _DicePageState extends State<DicePage> {
   @override
   Widget build(BuildContext context) {
 
+    void castDice() {
+      setState(() {
+        _leftDiceNumber = Random().nextInt(6) + 1;
+        _rightDiceNumber = Random().nextInt(6) + 1;
+        print('Left dice number is $_leftDiceNumber');
+        print('Right dice number is $_rightDiceNumber');
+      });
+    }
+
     return Center(
         child: Row(
           children: <Widget>[
@@ -91,12 +100,7 @@ class _DicePageState extends State<DicePage> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextButton(
                   child: Image.asset('images/dice$_leftDiceNumber.png'),
-                  onPressed: () {
-                    setState(() {
-                      _leftDiceNumber = Random().nextInt(6) + 1;
-                      print('Left dice number is $_leftDiceNumber');
-                    });
-                  },
+                  onPressed: () => castDice(),
                 ),
               ),
             ),
@@ -105,11 +109,7 @@ class _DicePageState extends State<DicePage> {
                   padding: const EdgeInsets.all(16.0),
                   child: TextButton(
                     child: Image.asset('images/dice$_rightDiceNumber.png'),
-                    onPressed: () {
-                      // Compare with Left dice button.
-                      _rightDiceNumber = Random().nextInt(5) + 1;
-                      print('Right dice number is $_rightDiceNumber');
-                    },
+                    onPressed: () => castDice(),
                   ),
                 )),
           ],
